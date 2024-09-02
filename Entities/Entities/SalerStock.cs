@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Domain.Entities
+{
+    public class SalerStock
+    {
+        public int Id { get; set; }
+        public int WholesalerId { get; set; }
+        public Wholesaler Wholesaler { get; set; }
+        public int BeerId { get; set; }
+        public Beer Beer { get; set; }
+        public int Quantity { get; set; }
+    }
+
+}
