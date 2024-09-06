@@ -10,7 +10,9 @@ namespace Domain.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Beer> Beers { get; set; }
+        // Navigation property to a collection of Beer entity
+        // A Brewer brews one or several Beers one to many relationship 
+        public ICollection<Beer> Beers { get; set; } 
     }
 
 }

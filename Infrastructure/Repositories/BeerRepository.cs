@@ -17,14 +17,14 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Beer> GetBeerById(int beerId)
+        public async Task<Beer> GetBeerById(Guid beerId)
         {
             try
             {
                 return await _context.Beers
                 .Include(b => b.Brewer)
                 .Include(b => b.salerStocks)
-                .FirstOrDefaultAsync(b => b.Id == beerId);
+                .FirstOrDefaultAsync(b => b.Id.Equals(beerId));
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message);
@@ -33,7 +33,7 @@ namespace Infrastructure.Repositories
         }
 
 
-        public async Task AddBeerByBrewer(Beer beer, int brewerId)
+        public async Task AddBeerByBrewer(Beer beer, Guid brewerId)
         {
             var brewer = await _context.Brewers.FindAsync(brewerId);
             if (brewer == null)
@@ -44,10 +44,10 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteBeerByBrewer(Beer beer, int brewerId)
+        public async Task DeleteBeerByBrewer(Beer beer, Guid brewerId)
         {
             var beerToDelete = await _context.Beers
-                .FirstOrDefaultAsync(b => b.Id == beer.Id && b.BrewerId == brewerId);
+                .FirstOrDefaultAsync(b => b.Id == beer.Id && b.BrewerId.Equals( brewerId));
 
             if (beerToDelete == null)
                 throw new KeyNotFoundException("Beer not found or does not belong to the brewer");
@@ -56,10 +56,10 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId)
+        public async Task<IEnumerable<Beer>> GetBeersByBrewer(Guid brewerId)
         {
             return await _context.Beers
-                .Where(b => b.BrewerId == brewerId)
+                .Where(b => b.BrewerId.Equals( brewerId))
                 .Include(b => b.Brewer)
                 .ToListAsync();
         }

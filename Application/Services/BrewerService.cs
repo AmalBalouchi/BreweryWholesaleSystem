@@ -22,12 +22,12 @@ namespace Application.Services
             await _brewerRepository.AddBeer(newBeer);
         }
 
-        public async Task DeleteBeerAsync(int beerId)
+        public async Task DeleteBeerAsync(Guid beerId)
         {
             await _brewerRepository.DeleteBeer(beerId);
         }
 
-        public async Task<IEnumerable<Beer>> GetBeersByBrewerAsync(int brewerId)
+        public async Task<IEnumerable<Beer>> GetBeersByBrewerAsync(Guid brewerId)
         {
             return await _brewerRepository.GetBeersByBrewer(brewerId);
         }

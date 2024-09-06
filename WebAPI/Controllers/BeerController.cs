@@ -21,14 +21,14 @@ public class BeerController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteBeer(int id)
+    public async Task<IActionResult> DeleteBeer(Guid id)
     {
         await _brewerService.DeleteBeerAsync(id);
         return Ok();
     }
 
     [HttpGet("by-brewer/{brewerId}")]
-    public async Task<IActionResult> GetBeersByBrewer(int brewerId)
+    public async Task<IActionResult> GetBeersByBrewer(Guid brewerId)
     {
         var beers = await _brewerService.GetBeersByBrewerAsync(brewerId);
         return Ok(beers);

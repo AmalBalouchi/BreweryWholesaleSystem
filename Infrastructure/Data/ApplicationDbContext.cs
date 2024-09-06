@@ -18,27 +18,44 @@ namespace Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SalerStock>()
-                .HasKey(ss => ss.Id);
+            // The primary key of entity Brewer
+            modelBuilder.Entity<Brewer>()
+                .HasKey(b => new { b.Id });
 
+            // The primary key of entity Saler
+            modelBuilder.Entity<Saler>()
+                .HasKey(s => new { s.Id });
+
+            // The primary key of entity Beer 
+            modelBuilder.Entity<Beer>()
+                .HasKey(b => new { b.Id });
+
+            // The primary key of entity SalerStock
+            modelBuilder.Entity<SalerStock>()
+                .HasKey(ss => new { ss.SalerId, ss.BeerId });
+
+            // one-to-many relationship between Saler and SalerStock
             modelBuilder.Entity<SalerStock>()
                 .HasOne(ss => ss.Saler)
                 .WithMany(s => s.salerStocks)
-                .HasForeignKey(ss => ss.SalerId)
+                .HasForeignKey(ss => new { ss.SalerId })
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // one-to-many relationship between Beer and SalerStock
             modelBuilder.Entity<SalerStock>()
                 .HasOne(ss => ss.Beer)
-                .WithMany(b => b.salerStocks
-                )
-                .HasForeignKey(ss => ss.BeerId)
+                .WithMany(b => b.salerStocks)
+                .HasForeignKey(ss => new { ss.BeerId })
                 .OnDelete(DeleteBehavior.Cascade);
 
+
+
+            // Specify the relationship between Beer and Brewer one to many
             modelBuilder.Entity<Beer>()
-                .HasOne(b => b.Brewer)
-                .WithMany(br => br.Beers)
-                .HasForeignKey(b => b.BrewerId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(b => b.Brewer)  // A Beer is linked to a Brewer
+                .WithMany(br => br.Beers)  // Brewer brews one or several Beers 
+                .HasForeignKey(b => new { b.BrewerId })
+                .OnDelete(DeleteBehavior.Cascade); 
 
             modelBuilder.Entity<Beer>()
                 .Property(b => b.Price)
