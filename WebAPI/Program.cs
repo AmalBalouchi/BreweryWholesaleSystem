@@ -1,3 +1,4 @@
+using Application.Services;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
@@ -26,9 +27,13 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Add the repositories as a scoped dependency
+builder.Services.AddScoped<IBrewerRepository, BrewerRepository>(); // Register the BrewerRepository
+builder.Services.AddScoped<IBeerRepository, BeerRepository>(); // Register the BeerRepository
 
-builder.Services.AddScoped<BeerService>(); // Add your service as a scoped dependency
-builder.Services.AddScoped<IBeerRepository, BeerRepository>();
+// Add the services as a scoped dependency
+builder.Services.AddScoped<BrewerService>(); // Register the BrewerService
+builder.Services.AddScoped<BeerService>(); // Register the BeerService
 
 var app = builder.Build();
 

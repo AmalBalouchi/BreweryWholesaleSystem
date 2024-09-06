@@ -10,16 +10,16 @@ namespace Application.UseCases
 {
     public class GetBeersByBrewer
     {
-        private readonly IBreweryRepository _breweryRepository;
+        private readonly IBeerRepository _beerRepository;
 
-        public GetBeersByBrewer(IBreweryRepository breweryRepository) //Dependency injection of IBeerRepository
+        public GetBeersByBrewer(IBeerRepository beerRepository) //Dependency injection of IBeerRepository
         {
-            _breweryRepository = breweryRepository;
+            _beerRepository = beerRepository;
         }
 
-        /*public async Task<IEnumerable<Beer>> ExecuteAsync(int breweryId)
+        public async Task<IEnumerable<Beer>> ExecuteAsync(int brewerId)
         {
-            return await _breweryRepository.GetBeersByBrewer(breweryId);
-        }*/
+            return await _beerRepository.GetBeersByBrewer(brewerId);
+        }
     }
 }

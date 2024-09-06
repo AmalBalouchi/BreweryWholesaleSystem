@@ -1,37 +1,36 @@
-﻿using Domain.Entities;
+﻿using Application.Services;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
 public class BeerController : ControllerBase
 {
-    private readonly BeerService _beerService;
+    private readonly BrewerService _brewerService;
 
-    public BeerController(BeerService beerService)
+    public BeerController(BrewerService brewerService)
     {
-        _beerService = beerService;
+        _brewerService = brewerService;
     }
 
-    [HttpGet("{brewerId}")]
+    [HttpPost]
+    public async Task<IActionResult> AddBeer([FromBody] Beer beer)
+    {
+        await _brewerService.AddBeerAsync(beer);
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBeer(int id)
+    {
+        await _brewerService.DeleteBeerAsync(id);
+        return Ok();
+    }
+
+    [HttpGet("by-brewer/{brewerId}")]
     public async Task<IActionResult> GetBeersByBrewer(int brewerId)
     {
-        var beers = await _beerService.GetBeersByBrewer(brewerId);
+        var beers = await _brewerService.GetBeersByBrewerAsync(brewerId);
         return Ok(beers);
     }
-
-    [HttpPost("{brewerId}")]
-    public async Task<IActionResult> AddBeer([FromBody] Beer beer, int brewerId)
-    {
-        await _beerService.AddBeer(beer, brewerId);
-        return CreatedAtAction(nameof(GetBeersByBrewer), new { brewerId = brewerId }, beer);
-    }
-
-    [HttpDelete("{brewerId}/{beerId}")]
-    public async Task<IActionResult> DeleteBeer(int brewerId, int beerId)
-    {
-        var beer = new Beer { Id = beerId };
-        await _beerService.DeleteBeer(beer, brewerId);
-        return NoContent();
-    }
-
 }

@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IBreweryRepository
+    public interface IBrewerRepository
     {
-
+        Task AddBeer(Beer beer);  // Method that allows the brewer to add a beer
+        Task DeleteBeer(int beerId);  // Method that allows the brewer to delete a beer by beerId
+        Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId);  // Method to display all beers by its brewer
     }
-
 }

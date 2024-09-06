@@ -17,18 +17,19 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Beer> GetBeerByName(string name)
+        public async Task<Beer> GetBeerById(int beerId)
         {
-            if (string.IsNullOrEmpty(name))
+            try
             {
-                return null;
-            }
-            else { 
-            return await _context.Beers
+                return await _context.Beers
                 .Include(b => b.Brewer)
                 .Include(b => b.salerStocks)
-                .FirstOrDefaultAsync(b => b.Name == name);
+                .FirstOrDefaultAsync(b => b.Id == beerId);
             }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
 

@@ -9,7 +9,7 @@ namespace Domain.Interfaces
 {
     public interface IBeerRepository
     {
-        Task<Beer> GetBeerByName(string name);
+        Task<Beer> GetBeerById(int beerId);
         Task AddBeerByBrewer(Beer beer, int brewerId);   
         Task DeleteBeerByBrewer(Beer beer, int brewerId); 
         Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId);
