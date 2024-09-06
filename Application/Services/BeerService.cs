@@ -1,28 +1,16 @@
-﻿using Domain.Entities;
+﻿using Application.Services;
+using Domain.Entities;
 using Domain.Interfaces;
 
-public class BeerService
+public class BeerService : IBeerService
 {
-    private readonly IBeerRepository _beerRepository;
+        // This is a sample of validation to show the use of a service
+         public Task ValidateBeerAsync(Beer beer)
+        {
+            if (beer.Alcohol <= 0)
+                throw new ArgumentException("Alcohol content must be positive");
 
-    public BeerService(IBeerRepository beerRepository)
-    {
-        _beerRepository = beerRepository;
+            return Task.CompletedTask;
+        }
+
     }
-
-    public async Task<IEnumerable<Beer>> GetBeersByBrewer(Guid brewerId)
-    {
-        return await _beerRepository.GetBeersByBrewer(brewerId);
-    }
-
-    public async Task AddBeer(Beer beer, Guid brewerId)
-    {
-        await _beerRepository.AddBeerByBrewer(beer, brewerId);
-    }
-
-    public async Task DeleteBeer(Beer beer, Guid brewerId)
-    {
-        await _beerRepository.DeleteBeerByBrewer(beer, brewerId);
-    }
-
-}

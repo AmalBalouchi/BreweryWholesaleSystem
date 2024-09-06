@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Application.UseCases;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,31 +7,26 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]")]
 public class BeerController : ControllerBase
 {
-    private readonly BrewerService _brewerService;
+    private readonly GetBeersByBrewer _getBeersByBrewer;
 
-    public BeerController(BrewerService brewerService)
+    public BeerController(GetBeersByBrewer getBeersByBrewer)
     {
-        _brewerService = brewerService;
+        _getBeersByBrewer = getBeersByBrewer;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> AddBeer([FromBody] Beer beer)
+    [HttpGet("{brewerId}/beers")]
+    [Route("GetBeersByBrewer")]
+    public async Task<ActionResult<IEnumerable<Beer>>> GetBeersByBrewer(Guid brewerId)
     {
-        await _brewerService.AddBeerAsync(beer);
-        return Ok();
-    }
+        try
+        {
+            var beers = await _getBeersByBrewer.ExecuteAsync(brewerId);
+            return Ok(beers);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteBeer(Guid id)
-    {
-        await _brewerService.DeleteBeerAsync(id);
-        return Ok();
-    }
-
-    [HttpGet("by-brewer/{brewerId}")]
-    public async Task<IActionResult> GetBeersByBrewer(Guid brewerId)
-    {
-        var beers = await _brewerService.GetBeersByBrewerAsync(brewerId);
-        return Ok(beers);
     }
 }
