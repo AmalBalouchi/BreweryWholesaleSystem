@@ -16,20 +16,5 @@ namespace Application.Services
         {
             _brewerRepository = brewerRepository;
         }
-
-        public async Task AddBeerAsync(Beer newBeer)
-        {
-            await _brewerRepository.AddBeer(newBeer);
-        }
-
-        public async Task DeleteBeerAsync(Guid beerId)
-        {
-            await _brewerRepository.DeleteBeer(beerId);
-        }
-
-        public async Task<IEnumerable<Beer>> GetBeersByBrewerAsync(Guid brewerId)
-        {
-            return await _brewerRepository.GetBeersByBrewer(brewerId);
-        }
     }
 }

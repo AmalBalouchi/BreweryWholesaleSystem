@@ -15,23 +15,6 @@ namespace Infrastructure.Repositories
         {
             _context = context;
         }
-
-        public async Task AddBeer(Beer beer)
-        {
-            await _context.Beers.AddAsync(beer);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteBeer(Guid beerId)
-        {
-            var beer = await _context.Beers.FindAsync(beerId);
-            if (beer != null)
-            {
-                _context.Beers.Remove(beer);
-                await _context.SaveChangesAsync();
-            }
-        }
-
         public async Task<IEnumerable<Beer>> GetBeersByBrewer(Guid brewerId)
         {
             return await _context.Beers

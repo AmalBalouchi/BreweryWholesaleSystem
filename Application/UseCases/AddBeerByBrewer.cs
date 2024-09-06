@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Services;
+using Domain.Entities;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,23 @@ namespace Application.UseCases
     public class AddBeerByBrewer
     {
 
-        private readonly IBrewerRepository _brewerRepository;
+        private readonly IBeerRepository _beerRepository;
+        private readonly IBeerService _beerService;
 
-        public AddBeerByBrewer(IBrewerRepository brewerRepository) //Dependency injection of IBrewerRepository
+        //Dependency injection of IBrewerRepository and IBeerService
+        public AddBeerByBrewer(IBeerRepository beerRepository, IBeerService beerService) 
         {
-            _brewerRepository = brewerRepository;
+            _beerRepository = beerRepository;
+            _beerService = beerService;
         }
 
-        public async Task ExecuteAsync (Beer newBeer)
+        public async Task ExecuteAsync(Beer newBeer, Guid brewerId)
         {
-            await _brewerRepository.AddBeer(newBeer);
+            // Validate the beer using the service
+            await _beerService.ValidateBeerAsync(newBeer);
+
+            // Add the beer using the repository
+            await _beerRepository.AddBeerByBrewer(newBeer, brewerId);
         }
 
     }

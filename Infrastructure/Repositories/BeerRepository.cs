@@ -44,10 +44,10 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteBeerByBrewer(Beer beer, Guid brewerId)
+        public async Task DeleteBeerByBrewer(Guid beerId, Guid brewerId)
         {
             var beerToDelete = await _context.Beers
-                .FirstOrDefaultAsync(b => b.Id == beer.Id && b.BrewerId.Equals( brewerId));
+                .FirstOrDefaultAsync(b => b.Id == beerId && b.BrewerId.Equals( brewerId));
 
             if (beerToDelete == null)
                 throw new KeyNotFoundException("Beer not found or does not belong to the brewer");

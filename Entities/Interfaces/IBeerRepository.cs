@@ -10,9 +10,9 @@ namespace Domain.Interfaces
     public interface IBeerRepository
     {
         Task<Beer> GetBeerById(Guid beerId);
-        Task AddBeerByBrewer(Beer beer, Guid brewerId);   
-        Task DeleteBeerByBrewer(Beer beer, Guid brewerId); 
-        Task<IEnumerable<Beer>> GetBeersByBrewer(Guid brewerId);
+        Task AddBeerByBrewer(Beer beer, Guid brewerId);  // Method that allows the brewer to add a beer
+        Task DeleteBeerByBrewer(Guid beerId, Guid brewerId);  // Method that allows the brewer to delete a beer by beerId
+        Task<IEnumerable<Beer>> GetBeersByBrewer(Guid brewerId);  // Method to display all beers by its brewer
     }
 
 }
