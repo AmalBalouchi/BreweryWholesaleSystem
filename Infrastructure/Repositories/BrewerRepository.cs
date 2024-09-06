@@ -22,7 +22,7 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteBeer(int beerId)
+        public async Task DeleteBeer(Guid beerId)
         {
             var beer = await _context.Beers.FindAsync(beerId);
             if (beer != null)
@@ -32,10 +32,10 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId)
+        public async Task<IEnumerable<Beer>> GetBeersByBrewer(Guid brewerId)
         {
             return await _context.Beers
-                .Where(b => b.BrewerId == brewerId)
+                .Where(b => b.BrewerId.Equals( brewerId))
                 .ToListAsync();
         }
     }

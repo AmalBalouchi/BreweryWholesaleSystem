@@ -17,7 +17,7 @@ namespace Application.UseCases
             _beerRepository = beerRepository;
         }
 
-        public async Task<IEnumerable<Beer>> ExecuteAsync(int brewerId)
+        public async Task<IEnumerable<Beer>> ExecuteAsync(Guid brewerId)
         {
             return await _beerRepository.GetBeersByBrewer(brewerId);
         }

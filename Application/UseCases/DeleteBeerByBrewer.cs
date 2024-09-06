@@ -18,7 +18,7 @@ namespace Application.UseCases
             _beerRepository = beerRepository;
         }
 
-        public void Execute(int beerId)
+        public void Execute(Guid beerId)
         {
             var beer = _beerRepository.GetBeerById(beerId);
             if (beer != null)
