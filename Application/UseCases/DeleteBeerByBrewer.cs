@@ -9,20 +9,22 @@ namespace Application.UseCases
 {
     public class DeleteBeerByBrewer
     {
+        private readonly IBrewerRepository _brewerRepository;
         private readonly IBeerRepository _beerRepository;
 
-        public DeleteBeerByBrewer(IBeerRepository beerRepository) //Dependency injection of IBeerRepository
+        public DeleteBeerByBrewer(IBrewerRepository brewerRepository, IBeerRepository beerRepository) //Dependency injection of IBrewerRepository
         {
+            _brewerRepository = brewerRepository;
             _beerRepository = beerRepository;
         }
 
-        /*public async Task ExecuteAsync(int beerId)
+        public void Execute(int beerId)
         {
-            var beer = await _beerRepository.GetByIdAsync(beerId);
+            var beer = _beerRepository.GetBeerById(beerId);
             if (beer != null)
             {
-                await _beerRepository.DeleteAsync(beer);
+                _brewerRepository.DeleteBeer(beerId);
             }
-        }*/
+        }
     }
 }

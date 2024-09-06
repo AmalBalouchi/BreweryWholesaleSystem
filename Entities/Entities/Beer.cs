@@ -8,7 +8,7 @@ namespace Domain.Entities
 {
     public class Beer
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public double Alcohol { get; set; }
         public decimal Price { get; set; }
