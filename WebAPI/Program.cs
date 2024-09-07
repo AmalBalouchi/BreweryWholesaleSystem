@@ -1,4 +1,5 @@
 using Application.Services;
+using Application.UseCases;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
@@ -9,7 +10,17 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// The use cases are not automatically registered in the DI container
+// Register the use case services here
+builder.Services.AddScoped<AddBeerByBrewer>();
+builder.Services.AddScoped<DeleteBeerByBrewer>();
+builder.Services.AddScoped<GetBeersByBrewer>();
 
+// Add your service as a scoped dependency
+builder.Services.AddScoped<IBeerService, BeerService>();
+builder.Services.AddScoped<IBeerRepository, BeerRepository>();
+
+builder.Services.AddScoped<IBrewerRepository, BrewerRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
