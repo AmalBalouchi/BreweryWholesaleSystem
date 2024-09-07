@@ -15,8 +15,7 @@ public class BeerController : ControllerBase
     }
 
     [HttpGet("{brewerId}/beers")]
-    [Route("GetBeersByBrewer")]
-    public async Task<ActionResult<IEnumerable<Beer>>> GetBeersByBrewer(Guid brewerId)
+    public async Task<ActionResult<IEnumerable<Beer>>> GetBeers(Guid brewerId)
     {
         try
         {

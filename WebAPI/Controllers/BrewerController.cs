@@ -23,8 +23,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("{brewerId}/beers")]
-        [Route("AddBeerByBrewer")]
-
         public async Task<IActionResult> AddBeer(Guid brewerId, [FromBody] Beer beer)
         {
             try
@@ -40,7 +38,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{brewerId}/beers/{beerId}")]
-        [Route("DeleteBeerByBrewer")]
         public async Task<IActionResult> DeleteBeer(Guid beerId, Guid brewerId)
         {
             try
@@ -55,7 +52,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{brewerId}/beers")]
-        [Route("GetBeersByBrewer")]
         public async Task<ActionResult<IEnumerable<Beer>>> GetBeersByBrewer(Guid brewerId)
         {
             try
