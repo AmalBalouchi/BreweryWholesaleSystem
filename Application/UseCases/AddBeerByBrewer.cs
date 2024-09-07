@@ -22,13 +22,13 @@ namespace Application.UseCases
             _beerService = beerService;
         }
 
-        public async Task ExecuteAsync(Beer newBeer, Guid brewerId)
+        public async Task ExecuteAsync(Guid brewerId, Beer newBeer)
         {
             // Validate the beer using the service
             await _beerService.ValidateBeerAsync(newBeer);
 
             // Add the beer using the repository
-            await _beerRepository.AddBeerByBrewer(newBeer, brewerId);
+            await _beerRepository.AddBeerByBrewer(brewerId, newBeer);
         }
 
     }

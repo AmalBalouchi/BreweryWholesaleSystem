@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                await _addBeerUseCase.ExecuteAsync(beer, brewerId);
+                await _addBeerUseCase.ExecuteAsync(brewerId, beer);
                 return Ok("Beer added successfully");
             }
             catch (Exception ex)

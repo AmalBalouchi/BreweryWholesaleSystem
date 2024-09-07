@@ -33,7 +33,7 @@ namespace Infrastructure.Repositories
         }
 
 
-        public async Task AddBeerByBrewer(Beer beer, Guid brewerId)
+        public async Task AddBeerByBrewer(Guid brewerId, Beer beer)
         {
             var brewer = await _context.Brewers.FindAsync(brewerId);
             if (brewer == null)
