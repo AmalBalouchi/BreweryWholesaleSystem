@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("{brewerId}/beers")]
-        public async Task<IActionResult> AddBeer(Guid brewerId, [FromBody] Beer beer)
+        public async Task<IActionResult> AddBeer(int brewerId, [FromBody] Beer beer)
         {
             try
             {
@@ -38,11 +38,11 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{brewerId}/beers/{beerId}")]
-        public async Task<IActionResult> DeleteBeer(Guid beerId, Guid brewerId)
+        public async Task<IActionResult> DeleteBeer(int beerId, int brewerId)
         {
             try
             {
-                _deleteBeerUseCase.ExecuteAsync(beerId, brewerId);
+                await _deleteBeerUseCase.ExecuteAsync(beerId, brewerId);
                 return Ok("Beer deleted successfully");
             }
             catch (Exception ex)
@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{brewerId}/beers")]
-        public async Task<ActionResult<IEnumerable<Beer>>> GetBeersByBrewer(Guid brewerId)
+        public async Task<ActionResult<IEnumerable<Beer>>> GetBeersByBrewer(int brewerId)
         {
             try
             {

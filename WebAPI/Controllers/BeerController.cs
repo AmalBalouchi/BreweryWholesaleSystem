@@ -15,7 +15,7 @@ public class BeerController : ControllerBase
     }
 
     [HttpGet("{brewerId}/beers")]
-    public async Task<ActionResult<IEnumerable<Beer>>> GetBeers(Guid brewerId)
+    public async Task<ActionResult<IEnumerable<Beer>>> GetBeers(int brewerId)
     {
         try
         {

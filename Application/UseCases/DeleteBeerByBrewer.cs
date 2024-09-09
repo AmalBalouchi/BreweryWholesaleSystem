@@ -16,9 +16,19 @@ namespace Application.UseCases
             _beerRepository = beerRepository;
         }
 
-        public void ExecuteAsync(Guid beerId, Guid brewerId)
+        public async Task ExecuteAsync(int beerId, int brewerId)
         {
-            _beerRepository.DeleteBeerByBrewer(beerId, brewerId);
+            try
+            {
+                await _beerRepository.DeleteBeerByBrewer(beerId, brewerId);
+                Console.WriteLine("Beer deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during deletion: {ex.Message}");
+                throw;
+            }
         }
+
     }
 }

@@ -1,11 +1,14 @@
 using Application.Services;
 using Application.UseCases;
 using Domain.Interfaces;
+using Domain.Entities;
+using Domain.Converters;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,18 @@ builder.Services.AddScoped<IBeerRepository, BeerRepository>();
 builder.Services.AddScoped<IBrewerRepository, BrewerRepository>();
 
 builder.Services.AddControllers();
+
+// Configure JSON serialization options
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    // Use Preserve to handle circular references
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    options.JsonSerializerOptions.MaxDepth = 128; // Increase max depth
+    options.JsonSerializerOptions.Converters.Add(new BeerJsonConverter());
+    options.JsonSerializerOptions.Converters.Add(new BrewerJsonConverter());
+    options.JsonSerializerOptions.Converters.Add(new SalerJsonConverter());
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
