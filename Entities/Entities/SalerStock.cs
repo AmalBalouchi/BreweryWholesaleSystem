@@ -5,22 +5,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace Domain.Entities
 {
     public class SalerStock
     {
         // Foreign key from Saler entity
-        public Guid SalerId { get; set; }
+        public int SalerId { get; set; } = 0;
 
         [ForeignKey("SalerId")]
-        public Saler Saler { get; set; }
+        public Saler Saler { get; set; } = new Saler();
 
-        public Guid BeerId { get; set; }
+        public int BeerId { get; set; } = 0;
 
         [ForeignKey("BeerId")]
-        public Beer Beer { get; set; }
-        public int Quantity { get; set; }
+        public Beer Beer { get; set; } = new Beer();
+        public int Quantity { get; set; } = 0;
     }
 
 }

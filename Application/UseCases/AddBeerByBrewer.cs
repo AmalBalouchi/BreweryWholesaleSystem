@@ -22,7 +22,7 @@ namespace Application.UseCases
             _beerService = beerService;
         }
 
-        public async Task ExecuteAsync(Guid brewerId, Beer newBeer)
+        public async Task ExecuteAsync(int brewerId, Beer newBeer)
         {
             // Validate the beer using the service
             await _beerService.ValidateBeerAsync(newBeer);

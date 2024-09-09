@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
@@ -17,7 +18,7 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Beer> GetBeerById(Guid beerId)
+        public async Task<Beer> GetBeerById(int beerId)
         {
             try
             {
@@ -33,7 +34,7 @@ namespace Infrastructure.Repositories
         }
 
 
-        public async Task AddBeerByBrewer(Guid brewerId, Beer beer)
+        public async Task AddBeerByBrewer(int brewerId, Beer beer)
         {
             var brewer = await _context.Brewers.FindAsync(brewerId);
             if (brewer == null)
@@ -44,19 +45,31 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteBeerByBrewer(Guid beerId, Guid brewerId)
+        public async Task DeleteBeerByBrewer(int beerId, int brewerId)
         {
-            var beerToDelete = await _context.Beers
-                .FirstOrDefaultAsync(b => b.Id == beerId && b.BrewerId.Equals( brewerId));
+            try
+            {
+                var beerToDelete = await _context.Beers
+                .Where(b => b.Id == beerId && b.BrewerId == brewerId)
+                .FirstOrDefaultAsync();
 
-            if (beerToDelete == null)
-                throw new KeyNotFoundException("Beer not found or does not belong to the brewer");
+                if (beerToDelete == null)
+                {
+                    throw new KeyNotFoundException("Beer not found or does not belong to the brewer");
+                }
 
-            _context.Beers.Remove(beerToDelete);
-            await _context.SaveChangesAsync();
+                _context.Beers.Remove(beerToDelete);
+                 await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during deletion: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw;
+            }
         }
 
-        public async Task<IEnumerable<Beer>> GetBeersByBrewer(Guid brewerId)
+        public async Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId)
         {
             return await _context.Beers
                 .Where(b => b.BrewerId.Equals( brewerId))
