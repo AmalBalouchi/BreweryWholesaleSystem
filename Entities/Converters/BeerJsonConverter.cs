@@ -25,7 +25,7 @@ namespace Domain.Converters
                     var propertyName = reader.GetString();
                     reader.Read(); // Move to property value
 
-                    switch (propertyName.ToLowerInvariant())
+                    switch (propertyName != null?propertyName.ToLowerInvariant(): null)
                     {
                         case "id":
                             beer.Id = reader.GetInt32();
@@ -42,18 +42,24 @@ namespace Domain.Converters
                         case "brewerid":
                             beer.BrewerId = reader.GetInt32();
                             break;
-                        case "brewer":
+                        //This scope for Deserialize Brewer object
+                        //this code is commented and saved in case we needed in the futur
+                        //to link the Beer entity to the Brewer entity
+                        /*case "brewer":
                             if (reader.TokenType == JsonTokenType.StartObject)
+                            {
                                 beer.Brewer = JsonSerializer.Deserialize<Brewer>(ref reader, options);
+                            }
+                            else if (reader.TokenType == JsonTokenType.Null)
+                            {
+                                beer.Brewer = null;
+                            }
                             else
-                                throw new JsonException("Expected Brewer to be an object.");
-                            break;
-                        case "salerstocks":
-                            if (reader.TokenType == JsonTokenType.StartArray)
-                                beer.salerStocks = JsonSerializer.Deserialize<List<SalerStock>>(ref reader, options);
-                            else
-                                throw new JsonException("Expected SalerStocks to be an array.");
-                            break;
+                            {
+                                throw new JsonException("Expected Brewer to be an object or null.");
+                            }
+                            break;*/
+
                         default:
                             throw new JsonException($"Unexpected property: {propertyName}");
                     }
@@ -88,11 +94,17 @@ namespace Domain.Converters
                 ReferenceHandler = ReferenceHandler.Preserve
             };
 
-            /*writer.WritePropertyName("brewer");
-            JsonSerializer.Serialize(writer, value.Brewer, newOptions);*/
+            //This scope for Serialize Brewer object
+            //this code is commented and saved in case we needed in the futur
+            //to link the Beer entity to the Brewer entity
+            /*if (value.Brewer != null)
+            {
+                writer.WritePropertyName("brewer");
+                // Serialize the nested Brewer object
+                JsonSerializer.Serialize(writer, value.Brewer, options);
+            }*/
 
-            writer.WritePropertyName("salerStocks");
-            JsonSerializer.Serialize(writer, value.salerStocks, newOptions);
+
 
             writer.WriteEndObject();
         }

@@ -33,12 +33,16 @@ namespace Domain.Converters
                         case "name":
                             saler.Name = reader.GetString();
                             break;
-                        case "salerstocks":
+
+                        //This scope for Deserialize salerStocks object
+                        //this code is commented and saved in case we needed in the futur
+                        //to link the Beer entity to the Brewer entity
+                        /*case "salerstocks":
                             if (reader.TokenType == JsonTokenType.StartArray)
                                 saler.salerStocks = JsonSerializer.Deserialize<List<SalerStock>>(ref reader, options);
                             else
                                 throw new JsonException("Expected SalerStocks to be an array.");
-                            break;
+                            break;*/
                         default:
                             throw new JsonException($"Unexpected property: {propertyName}");
                     }
