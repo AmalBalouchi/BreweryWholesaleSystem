@@ -42,20 +42,14 @@ namespace Infrastructure.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             // one-to-many relationship between Beer and SalerStock
-            modelBuilder.Entity<SalerStock>()
+            /*modelBuilder.Entity<SalerStock>()
                 .HasOne(ss => ss.Beer)
                 .WithMany(b => b.salerStocks)
                 .HasForeignKey(ss => new { ss.BeerId })
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
 
 
 
-            // Specify the relationship between Beer and Brewer one to many
-            modelBuilder.Entity<Beer>()
-                .HasOne(b => b.Brewer)  // A Beer is linked to a Brewer
-                .WithMany(br => br.Beers)  // Brewer brews one or several Beers 
-                .HasForeignKey(b => new { b.BrewerId })
-                .OnDelete(DeleteBehavior.Cascade); 
 
             modelBuilder.Entity<Beer>()
                 .Property(b => b.Price)

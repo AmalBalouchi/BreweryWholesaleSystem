@@ -22,10 +22,7 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                return await _context.Beers
-                .Include(b => b.Brewer)
-                .Include(b => b.salerStocks)
-                .FirstOrDefaultAsync(b => b.Id.Equals(beerId));
+                return await _context.Beers.FirstOrDefaultAsync(b => b.Id == beerId);
             }
             catch (Exception ex) {
                 throw new Exception(ex.Message);
@@ -73,7 +70,7 @@ namespace Infrastructure.Repositories
         {
             return await _context.Beers
                 .Where(b => b.BrewerId.Equals( brewerId))
-                .Include(b => b.Brewer)
+                //.Include(b => b.Brewer)
                 .ToListAsync();
         }
     }
