@@ -26,7 +26,7 @@ namespace Application.UseCases
             var beer = await _beerRepository.GetBeerByIdAsync(beerId);
             if (beer == null) throw new Exception("Beer does not exist");
 
-            var salerStock = saler.salerStocks.FirstOrDefault(ss => ss.BeerId == beerId);
+            var salerStock = saler.salerStocks.FirstOrDefault(ss => ss.BeerId == beerId && ss.SalerId == salerId);
 
             if (salerStock == null)
             {
@@ -40,7 +40,7 @@ namespace Application.UseCases
             }
             else
             {
-                salerStock.Quantity += quantity;
+                throw new Exception("Sale for this Beer already exist for this Saler");
             }
 
             await _salerRepository.UpdateSalerAsync(saler);
