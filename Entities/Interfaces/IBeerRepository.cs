@@ -14,6 +14,7 @@ namespace Domain.Interfaces
         Task DeleteBeerByBrewer(int beerId, int brewerId);  // Method that allows the brewer to delete a beer by beerId
         Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId);  // Method to display all beers by its brewer
         Task<Beer> GetBeerByIdAsync(int id);
+        decimal GetBeerPriceById(int id);
     }
 
 }

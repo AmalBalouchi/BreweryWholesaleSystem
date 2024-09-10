@@ -22,4 +22,10 @@ public class SalerRepository : ISalerRepository
         _context.Salers.Update(saler);
         await _context.SaveChangesAsync();
     }
+    public async Task<Saler> GetSalerWithStock(int salerId)
+    {
+        return await _context.Salers
+            .Include(s => s.salerStocks)
+            .FirstOrDefaultAsync(s => s.Id == salerId);
+    }
 }
