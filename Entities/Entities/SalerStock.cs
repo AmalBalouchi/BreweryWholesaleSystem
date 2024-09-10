@@ -12,15 +12,13 @@ namespace Domain.Entities
     public class SalerStock
     {
         // Foreign key from Saler entity
+        [ForeignKey("SalerId")]
         public int SalerId { get; set; } = 0;
 
-        [ForeignKey("SalerId")]
-        public Saler Saler { get; set; } = new Saler();
+        [ForeignKey("BeerId")]
 
         public int BeerId { get; set; } = 0;
 
-        [ForeignKey("BeerId")]
-        public Beer Beer { get; set; } = new Beer();
         public int Quantity { get; set; } = 0;
     }
 

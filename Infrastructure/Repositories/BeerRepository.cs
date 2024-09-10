@@ -73,5 +73,9 @@ namespace Infrastructure.Repositories
                 //.Include(b => b.Brewer)
                 .ToListAsync();
         }
+        public async Task<Beer> GetBeerByIdAsync(int id)
+        {
+            return await _context.Beers.FirstOrDefaultAsync(b => b.Id == id);
+        }
     }
 }
