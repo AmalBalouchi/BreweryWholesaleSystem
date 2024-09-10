@@ -11,6 +11,7 @@ namespace Domain.Interfaces
     {
         Task<Saler> GetSalerByIdAsync(int id);
         Task UpdateSalerAsync(Saler saler);
+        Task<Saler> GetSalerWithStock(int salerId);
     }
 
 }

@@ -19,6 +19,7 @@ builder.Services.AddScoped<DeleteBeerByBrewer>();
 builder.Services.AddScoped<GetBeersByBrewer>();
 builder.Services.AddScoped<AddSaleBySaler>();
 builder.Services.AddScoped<UpdateQuantityBySaler>();
+builder.Services.AddScoped<IRequestQuoteByClient, RequestQuoteByClient>();
 
 // Add your service as a scoped dependency
 builder.Services.AddScoped<IBeerService, BeerService>();

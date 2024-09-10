@@ -77,5 +77,10 @@ namespace Infrastructure.Repositories
         {
             return await _context.Beers.FirstOrDefaultAsync(b => b.Id == id);
         }
+
+        public decimal GetBeerPriceById(int id)
+        {
+            return _context.Beers.FirstOrDefault(b => b.Id == id).Price;
+        }
     }
 }
