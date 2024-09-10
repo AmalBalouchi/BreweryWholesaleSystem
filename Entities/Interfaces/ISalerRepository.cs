@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IWholesalerRepository
+    public interface ISalerRepository
     {
-
+        Task<Saler> GetSalerByIdAsync(int id);
+        Task UpdateSalerAsync(Saler saler);
     }
 
 }

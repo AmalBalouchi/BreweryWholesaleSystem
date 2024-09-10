@@ -14,7 +14,7 @@ namespace Infrastructure.Data
         public DbSet<Brewer> Brewers { get; set; }
         public DbSet<Beer> Beers { get; set; }
         public DbSet<Saler> Salers { get; set; }
-        public DbSet<SalerStock> salerStocks { get; set; }
+        public DbSet<SalerStock> SalerStocks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,11 +35,10 @@ namespace Infrastructure.Data
                 .HasKey(ss => new { ss.SalerId, ss.BeerId });
 
             // one-to-many relationship between Saler and SalerStock
-            modelBuilder.Entity<SalerStock>()
-                .HasOne(ss => ss.Saler)
-                .WithMany(s => s.salerStocks)
-                .HasForeignKey(ss => new { ss.SalerId })
-                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Saler>()
+                .HasMany(s => s.salerStocks)
+                .WithOne()
+                .HasForeignKey(ss => ss.SalerId);
 
             // one-to-many relationship between Beer and SalerStock
             /*modelBuilder.Entity<SalerStock>()

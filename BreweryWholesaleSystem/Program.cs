@@ -17,12 +17,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<AddBeerByBrewer>();
 builder.Services.AddScoped<DeleteBeerByBrewer>();
 builder.Services.AddScoped<GetBeersByBrewer>();
+builder.Services.AddScoped<AddSaleBySaler>();
+builder.Services.AddScoped<UpdateQuantityBySaler>();
 
 // Add your service as a scoped dependency
 builder.Services.AddScoped<IBeerService, BeerService>();
 builder.Services.AddScoped<IBeerRepository, BeerRepository>();
-
 builder.Services.AddScoped<IBrewerRepository, BrewerRepository>();
+builder.Services.AddScoped<ISalerRepository, SalerRepository>();
 
 builder.Services.AddControllers();
 
