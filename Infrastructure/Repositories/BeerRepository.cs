@@ -82,5 +82,10 @@ namespace Infrastructure.Repositories
         {
             return _context.Beers.FirstOrDefault(b => b.Id == id).Price;
         }
+
+        public async Task<IEnumerable<Beer>> GetAllBeers()
+        {
+            return await _context.Beers.ToListAsync();
+        }
     }
 }

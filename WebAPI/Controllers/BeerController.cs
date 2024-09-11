@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 public class BeerController : ControllerBase
 {
     private readonly GetBeersByBrewer _getBeersByBrewer;
+    private readonly ListAllBeersGroupedByBrewery _listAllBeersGroupedByBrewery;
 
-    public BeerController(GetBeersByBrewer getBeersByBrewer)
+    public BeerController(GetBeersByBrewer getBeersByBrewer, ListAllBeersGroupedByBrewery listAllBeersGroupedByBrewery)
     {
         _getBeersByBrewer = getBeersByBrewer;
+        _listAllBeersGroupedByBrewery = listAllBeersGroupedByBrewery;
     }
 
     [HttpGet("{brewerId}/beers")]
@@ -27,5 +29,12 @@ public class BeerController : ControllerBase
             return BadRequest(ex.Message);
         }
 
+    }
+
+    [HttpGet("grouped-by-brewery")]
+    public async Task<ActionResult<IDictionary<int, List<Beer>>>> GetAllBeersGroupedByBrewery()
+    {
+        var groupedBeers = await _listAllBeersGroupedByBrewery.Execute();
+        return Ok(groupedBeers);
     }
 }
