@@ -9,9 +9,9 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class ClientController : ControllerBase
     {
-        private readonly IRequestQuoteByClient _requestQuoteUseCase;
+        private readonly RequestQuoteByClient _requestQuoteUseCase;
 
-        public ClientController(IRequestQuoteByClient requestQuoteUseCase)
+        public ClientController(RequestQuoteByClient requestQuoteUseCase)
         {
             _requestQuoteUseCase = requestQuoteUseCase;
         }
@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var response = await _requestQuoteUseCase.Handle(request);
+                var response = await _requestQuoteUseCase.Execute(request);
                 return Ok(response);
             }
             catch (Exception ex)

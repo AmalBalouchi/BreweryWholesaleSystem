@@ -15,6 +15,7 @@ namespace Domain.Interfaces
         Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId);  // Method to display all beers by its brewer
         Task<Beer> GetBeerByIdAsync(int id);
         decimal GetBeerPriceById(int id);
+        Task<IEnumerable<Beer>> GetAllBeers();
     }
 
 }

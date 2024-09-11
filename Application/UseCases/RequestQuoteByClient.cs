@@ -6,7 +6,7 @@ using Domain.Interfaces;
 
 namespace Application.UseCases
 {
-    public class RequestQuoteByClient : IRequestQuoteByClient
+    public class RequestQuoteByClient
     {
         private readonly ISalerRepository _salerRepository;
         private readonly IBeerRepository _beerRepository;
@@ -17,10 +17,23 @@ namespace Application.UseCases
             _beerRepository = beerRepository;
         }
 
-        public async Task<QuoteResponse> Handle(QuoteRequest request)
+        public async Task<QuoteResponse> Execute(QuoteRequest request)
         {
             if (request.order == null || !request.order.Any())
                 throw new Exception("The order cannot be empty");
+
+            // Check for duplicate BeerId in the order
+            var duplicateBeerIds = request.order
+                .GroupBy(o => o.BeerId)
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key)
+                .ToList();
+
+            if (duplicateBeerIds.Any())
+            {
+                string duplicateBeerIdsStr = string.Join(", ", duplicateBeerIds);
+                throw new Exception($"The order contains duplicate beers: {duplicateBeerIdsStr}");
+            }
 
             var saler = await _salerRepository.GetSalerWithStock(request.SalerId);
             if (saler == null)
