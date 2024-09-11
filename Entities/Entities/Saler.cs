@@ -12,6 +12,8 @@ namespace Domain.Entities
     {
         public int Id { get; set; } = 0;
         public string Name { get; set; } = string.Empty;
+        // Navigation property to a collection of Beer entity
+        // A saler sells a defined list of beers, it is a one to many relationship
         public ICollection<SalerStock> salerStocks { get; set; } = new List<SalerStock>();
     }
 

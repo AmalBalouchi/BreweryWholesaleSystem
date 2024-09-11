@@ -16,7 +16,7 @@ public class AddBeerByBrewerTests
         var mockBeerRepository = new Mock<IBeerRepository>();
         var mockBeerService = new Mock<IBeerService>();
 
-        var newBeer = new Beer { Id = 1, Name = "Beer1", Price = 3.01M };
+        var newBeer = new Beer { Id = 1002, Name = "Beer sample", Price = 3.01M };
 
         var useCase = new AddBeerByBrewer(mockBeerRepository.Object, mockBeerService.Object);
 
@@ -35,7 +35,7 @@ public class AddBeerByBrewerTests
         var mockBeerRepository = new Mock<IBeerRepository>();
         var mockBeerService = new Mock<IBeerService>();
 
-        var newBeer = new Beer { Id = 2, Name = "Beer2", Price = 1.99M };
+        var newBeer = new Beer { Id = 1003, Name = "Beer sample", Price = 1.99M };
 
         mockBeerRepository
             .Setup(r => r.AddBeerByBrewer(It.IsAny<int>(), It.IsAny<Beer>()))

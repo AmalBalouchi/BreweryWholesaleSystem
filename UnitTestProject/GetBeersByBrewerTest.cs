@@ -18,12 +18,12 @@ namespace UnitTestProject
             // Arrange
             var mockBeerRepository = new Mock<IBeerRepository>();
             var useCase = new GetBeersByBrewer(mockBeerRepository.Object);
-            var brewerId = 1;
+            var brewerId = 1005;
 
             var expectedBeers = new List<Beer>
             {
-                new Beer { Id = 1, Name = "Beer1", BrewerId = brewerId },
-                new Beer { Id = 2, Name = "Beer2", BrewerId = brewerId }
+                new Beer { Id = 1006, Name = "Beer 1006", BrewerId = brewerId },
+                new Beer { Id = 1007, Name = "Beer 1007", BrewerId = brewerId }
             };
 
             // Setup the repository to return the expected beers

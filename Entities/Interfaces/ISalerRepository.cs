@@ -9,9 +9,8 @@ namespace Domain.Interfaces
 {
     public interface ISalerRepository
     {
-        Task<Saler> GetSalerByIdAsync(int id);
-        Task UpdateSalerAsync(Saler saler);
-        Task<Saler> GetSalerWithStock(int salerId);
+        Task<Saler> GetSalerByIdAsync(int salerId); // Method that allows to get the saler by saler Id with its saleStock list
+        Task UpdateSalerAsync(Saler saler); // Method that allows to update the saler entity changes and save
     }
 
 }

@@ -9,13 +9,12 @@ namespace Domain.Interfaces
 {
     public interface IBeerRepository
     {
-        Task<Beer> GetBeerById(int beerId);
+        Task<Beer> GetBeerByIdAsync(int beerId); // Method that allows to get a beer for the beerId
         Task AddBeerByBrewer(int brewerId, Beer beer);  // Method that allows the brewer to add a beer
         Task DeleteBeerByBrewer(int beerId, int brewerId);  // Method that allows the brewer to delete a beer by beerId
-        Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId);  // Method to display all beers by its brewer
-        Task<Beer> GetBeerByIdAsync(int id);
-        decimal GetBeerPriceById(int id);
-        Task<IEnumerable<Beer>> GetAllBeers();
+        Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId);  // Method to display all beers by the brewerId
+        decimal GetBeerPriceById(int beerId); // Method that allows to get the beer price by its Id 
+        Task<IEnumerable<Beer>> GetAllBeers(); // Method that allows to display all beers grouped by BrewerIds
     }
 
 }

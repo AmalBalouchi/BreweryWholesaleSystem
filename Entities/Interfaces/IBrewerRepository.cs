@@ -9,6 +9,5 @@ namespace Domain.Interfaces
 {
     public interface IBrewerRepository
     {
-        Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId);  // Method to display all beers by its brewer
     }
 }

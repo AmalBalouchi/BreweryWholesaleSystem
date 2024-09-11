@@ -17,6 +17,7 @@ namespace Application.UseCases
 
         public async Task<IDictionary<int, List<Beer>>> Execute()
         {
+            // This is to display All the Beers grouped by the BrewerId
             var beers = await _beerRepository.GetAllBeers();
             var groupedBeers = beers.GroupBy(b => b.BrewerId)
                                     .ToDictionary(g => g.Key, g => g.ToList());
