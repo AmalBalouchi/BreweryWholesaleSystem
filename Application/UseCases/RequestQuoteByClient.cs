@@ -59,14 +59,15 @@ namespace Application.UseCases
 
             // Apply discounts
             if (totalQuantity > 20)
-                response.Discount = 0.20m;
+                response.DiscountPercentage = 0.20m;
             else if (totalQuantity > 10)
-                response.Discount = 0.10m;
+                response.DiscountPercentage = 0.10m;
             else
-                response.Discount = 0;
+                response.DiscountPercentage = 0;
 
+            response.DiscountAmount = totalPrice * response.DiscountPercentage;
             response.TotalPriceBeforeDiscount = totalPrice;
-            response.TotalPriceAfterDiscount = totalPrice - (response.Discount * totalPrice);
+            response.TotalPriceAfterDiscount = totalPrice - response.DiscountAmount;
             return response;
         }
     }

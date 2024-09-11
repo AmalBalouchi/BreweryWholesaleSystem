@@ -8,7 +8,8 @@ namespace Domain.Entities
 {
     public class QuoteResponse
     {
-        public decimal Discount { get; set; }
+        public decimal DiscountPercentage { get; set; }
+        public decimal DiscountAmount { get; set; }
         public decimal TotalPriceBeforeDiscount { get; set; }
         public decimal TotalPriceAfterDiscount { get; set; }
     }
