@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreweryWholesaleSystem", "BreweryWholesaleSystem\BreweryWholesaleSystem.csproj", "{3945AEE2-1D01-4FCA-A0E7-D0C5D2C16DB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Entities\Domain.csproj", "{90213429-0316-4189-B6F4-A5E954572432}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Entities\Domain.csproj", "{90213429-0316-4189-B6F4-A5E954572432}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{6F0E1701-5085-43AF-A3EA-AD97B2BC7C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{6F0E1701-5085-43AF-A3EA-AD97B2BC7C85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{4AAE7445-1AC4-4A46-BE53-0B2A309BF0DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{4AAE7445-1AC4-4A46-BE53-0B2A309BF0DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{D74A323D-D1B9-444B-834B-94026E5237D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{D74A323D-D1B9-444B-834B-94026E5237D8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{700A688F-519F-431A-97DE-F0295BC0528A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{700A688F-519F-431A-97DE-F0295BC0528A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3945AEE2-1D01-4FCA-A0E7-D0C5D2C16DB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3945AEE2-1D01-4FCA-A0E7-D0C5D2C16DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3945AEE2-1D01-4FCA-A0E7-D0C5D2C16DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3945AEE2-1D01-4FCA-A0E7-D0C5D2C16DB2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90213429-0316-4189-B6F4-A5E954572432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{90213429-0316-4189-B6F4-A5E954572432}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90213429-0316-4189-B6F4-A5E954572432}.Release|Any CPU.ActiveCfg = Release|Any CPU
