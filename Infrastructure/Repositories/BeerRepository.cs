@@ -18,21 +18,9 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Beer> GetBeerById(int beerId)
-        {
-            try
-            {
-                return await _context.Beers.FirstOrDefaultAsync(b => b.Id == beerId);
-            }
-            catch (Exception ex) {
-                throw new Exception(ex.Message);
-            }
-            
-        }
-
-
         public async Task AddBeerByBrewer(int brewerId, Beer beer)
         {
+            // Verify that the brewer exists in the Brewers table by the brewerId
             var brewer = await _context.Brewers.FindAsync(brewerId);
             if (brewer == null)
                 throw new KeyNotFoundException("Brewer not found");
@@ -46,6 +34,7 @@ namespace Infrastructure.Repositories
         {
             try
             {
+                // Find the beer by the beerId and brewerId in the Beers table
                 var beerToDelete = await _context.Beers
                 .Where(b => b.Id == beerId && b.BrewerId == brewerId)
                 .FirstOrDefaultAsync();
@@ -56,35 +45,40 @@ namespace Infrastructure.Repositories
                 }
 
                 _context.Beers.Remove(beerToDelete);
-                 await _context.SaveChangesAsync();
+
+                // Use await keyword to not save the changes
+                // until the previous find beer FirstOrDefaultAsync await method is complete
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during deletion: {ex.Message}");
-                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
                 throw;
             }
         }
 
         public async Task<IEnumerable<Beer>> GetBeersByBrewer(int brewerId)
         {
+            // Get the Beers list linked to the brewerId
             return await _context.Beers
                 .Where(b => b.BrewerId.Equals( brewerId))
-                //.Include(b => b.Brewer)
                 .ToListAsync();
         }
-        public async Task<Beer> GetBeerByIdAsync(int id)
+        public async Task<Beer> GetBeerByIdAsync(int beerId)
         {
-            return await _context.Beers.FirstOrDefaultAsync(b => b.Id == id);
+            // Get the beer from Beers entity by the beerId
+            return await _context.Beers.FirstOrDefaultAsync(b => b.Id == beerId);
         }
 
-        public decimal GetBeerPriceById(int id)
+        public decimal GetBeerPriceById(int beerId)
         {
-            return _context.Beers.FirstOrDefault(b => b.Id == id).Price;
+            // Get the price of a beer by the beerId
+            return _context.Beers.FirstOrDefault(b => b.Id == beerId).Price;
         }
 
         public async Task<IEnumerable<Beer>> GetAllBeers()
         {
+            // return the list of all the beers
             return await _context.Beers.ToListAsync();
         }
     }

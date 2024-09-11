@@ -19,8 +19,8 @@ namespace UnitTestProject
             // Arrange
             var mockBeerRepository = new Mock<IBeerRepository>();
             var useCase = new DeleteBeerByBrewer(mockBeerRepository.Object);
-            var beerId = 1;
-            var brewerId = 2;
+            var beerId = 1004;
+            var brewerId = 1005;
 
             // Act
             await useCase.ExecuteAsync(beerId, brewerId);

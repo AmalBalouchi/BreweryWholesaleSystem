@@ -13,7 +13,7 @@ namespace Domain.Entities
         [ForeignKey("SalerId")]
         public int SalerId { get; set; }
         [ForeignKey("BeerId")]
-        // Collection to handle multiple beers with their quantities
+        // Collection to add to the order multiple beers with their quantities
         public ICollection<Order> order { get; set; } = new List<Order>();
     }
 

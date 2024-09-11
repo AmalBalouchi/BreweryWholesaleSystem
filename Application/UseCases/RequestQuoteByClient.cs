@@ -19,6 +19,7 @@ namespace Application.UseCases
 
         public async Task<QuoteResponse> Execute(QuoteRequest request)
         {
+            // Check that the order requested from the client is not null
             if (request.order == null || !request.order.Any())
                 throw new Exception("The order cannot be empty");
 
@@ -35,7 +36,8 @@ namespace Application.UseCases
                 throw new Exception($"The order contains duplicate beers: {duplicateBeerIdsStr}");
             }
 
-            var saler = await _salerRepository.GetSalerWithStock(request.SalerId);
+            // Use SalerRepository to check the salerId already exists in Saler Table
+            var saler = await _salerRepository.GetSalerByIdAsync(request.SalerId);
             if (saler == null)
                 throw new Exception("The saler must exist");
 
@@ -45,13 +47,16 @@ namespace Application.UseCases
 
             foreach (var order in request.order)
             {
+                // Check that all beers bellong to the saler
                 var stockItem = saler.salerStocks.FirstOrDefault(s => s.BeerId == order.BeerId);
                 if (stockItem == null)
                     throw new Exception($"This beer is not sold by the saler");
 
+                // Check that the Quantity requested <= saler's stock quantity of each beer
                 if (order.Quantity > stockItem.Quantity)
                     throw new Exception($"The number of beers ordered cannot be greater than the saler's stock for {order.BeerId}");
 
+                // Get the price of each beer to calculate the total price and the total quantity
                 decimal price = _beerRepository.GetBeerPriceById(order.BeerId);
                 totalPrice += price * order.Quantity;
                 totalQuantity += order.Quantity;
