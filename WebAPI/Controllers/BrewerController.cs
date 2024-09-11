@@ -22,12 +22,12 @@ namespace WebAPI.Controllers
             _getBeersByBrewer = getBeersByBrewer;
         }
 
-        [HttpPost("{brewerId}/beers")]
-        public async Task<IActionResult> AddBeer(int brewerId, [FromBody] Beer beer)
+        [HttpPost("AddNewBeer")]
+        public async Task<IActionResult> AddBeer([FromBody] Beer beer)
         {
             try
             {
-                await _addBeerUseCase.ExecuteAsync(brewerId, beer);
+                await _addBeerUseCase.ExecuteAsync(beer.BrewerId, beer);
                 return Ok("Beer added successfully");
             }
             catch (Exception ex)

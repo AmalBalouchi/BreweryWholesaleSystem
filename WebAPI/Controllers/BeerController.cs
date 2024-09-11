@@ -16,22 +16,7 @@ public class BeerController : ControllerBase
         _listAllBeersGroupedByBrewery = listAllBeersGroupedByBrewery;
     }
 
-    [HttpGet("{brewerId}/beers")]
-    public async Task<ActionResult<IEnumerable<Beer>>> GetBeers(int brewerId)
-    {
-        try
-        {
-            var beers = await _getBeersByBrewer.ExecuteAsync(brewerId);
-            return Ok(beers);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-
-    }
-
-    [HttpGet("grouped-by-brewery")]
+    [HttpGet("ListAllBeersGroupedByBrewer")]
     public async Task<ActionResult<IDictionary<int, List<Beer>>>> GetAllBeersGroupedByBrewery()
     {
         var groupedBeers = await _listAllBeersGroupedByBrewery.Execute();
